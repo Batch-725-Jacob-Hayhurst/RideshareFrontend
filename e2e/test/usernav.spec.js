@@ -1,4 +1,4 @@
-describe('User logged in nav bar tests', function(){
+describe('User logged in nav bar: ', function(){
     //beginning of elements for the login
     let elLoginButton = element(by.xpath('/html/body/app-root/app-home-page/div[1]/div/div/button[1]'));
     let elLoginUsername = element(by.xpath('//*[@id="formGroupExampleInput"]'));
@@ -39,7 +39,7 @@ describe('User logged in nav bar tests', function(){
     checks to make sure that the driver button takes the user to the nearby drivers page on a larger screen
     change when the front end is being hosted
     */
-    it('User Presses the Driver Button and goes to the driver page on a laptop', function(){
+    xit('User Presses the Driver Button and goes to the driver page on a laptop', function(){
         browser.waitForAngular();
         browser.ignoreSynchronization=true
         elDriverButton.click();
@@ -49,7 +49,7 @@ describe('User logged in nav bar tests', function(){
 
     //checks to make sure that the driver button takes the user to the nearby drivers page on a smaller screen
     //change when the front end is being hosted
-    it('User Presses the Driver Button and goes to the driver page on a phone', function(){
+    xit('User Presses the Driver Button and goes to the driver page on a phone', function(){
         browser.driver.manage().window().setSize(xPhone,y);
         browser.waitForAngular();
         browser.ignoreSynchronization=true
@@ -75,7 +75,7 @@ describe('User logged in nav bar tests', function(){
 
     //checks to make sure that the search button takes the user to the search drivers page on a smaller screen
     //change when the front end is being hosted
-    it('User Presses the Search Button and goes to the driver search page on a phone', function(){
+    xit('User Presses the Search Button and goes to the driver search page on a phone', function(){
         browser.waitForAngular();
         browser.ignoreSynchronization=true
         browser.driver.manage().window().setSize(xPhone,y);

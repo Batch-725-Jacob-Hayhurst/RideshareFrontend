@@ -33,7 +33,7 @@ export class LandingPageComponent implements OnInit {
     this.sleep(2000).then(() => {
       this.mapProperties = {
          center: new google.maps.LatLng(Number(sessionStorage.getItem("lat")), Number(sessionStorage.getItem("lng"))),
-         zoom: 15,
+         zoom: 15,  
          mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapProperties);

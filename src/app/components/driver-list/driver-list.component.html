@@ -1,37 +1,116 @@
 <div class = "container">
+    <br>
     <div class="row">
-    <div class="col-lg-5">
-     <!--<div class="form-group">
-        <h4>Origin</h4>
-        <input [(ngModel)]="origin" id="origin" class="form-control" placeholder="Morgantown, WV"/>
-      </div>
-      <div class="form-group">
-        <h4>Destination</h4>
-        <input [(ngModel)]="destination" id="destination" class="form-control" placeholder="Reston, VA"/>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-8">
-          <button id = "search" class="btn btn-primary" (click)="getDirection()">Get Direction</button>
+    <div class="col-lg-6 text-center">
+      <h4>Directions</h4>
+      <div #map id="gmap" class="img-responsive"></div>
+    </div>
+    </div>
+    <br>
+    <div class="col-lg-6 text-center">
+      <h4>Drivers List</h4>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" (click)="sort('name')">
+              Name
+              <div class="timearrow"*ngIf="sortOrderIsLow('name'); else second">
+                <i class="fa fa-arrow-up"></i>
+              </div>
+              <ng-template #second>
+                <div class="timearrow" *ngIf="orderedBy==='name';">
+                  <i class="fa fa-arrow-down"></i>
+                </div>
+              </ng-template>
+            </th>
+            <th scope="col" (click)="sort('distance')">
+              Distance
+              <div class="timearrow" *ngIf="sortOrderIsLow('distance'); else second2">
+                <i class="fa fa-arrow-up"></i>
+              </div>
+              <ng-template #second2>
+                <div class="timearrow" *ngIf="orderedBy==='distance';">
+                  <i class="fa fa-arrow-down"></i>
+                </div>
+              </ng-template>
+            </th>
+            <th scope="col" (click)="sort('time')">
+              Time
+              <div class="timearrow" *ngIf="sortOrderIsLow('time'); else second3">
+                <i class="fa fa-arrow-up"></i>
+              </div>
+              <ng-template #second3>
+                <div class="timearrow" *ngIf="orderedBy==='time';">
+                  <i class="fa fa-arrow-down"></i>
+                </div>
+              </ng-template>
+            </th>
+            <th scope="col">View Info</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let driver of drivers | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <td>{{ driver.name }} </td>
+            <td>{{ driver.distance }}</td>
+            <td>{{ driver.duration }}</td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" (click)="addToModal(driver)">View</button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+          <ngb-pagination class="d-flex justify-content-center" [collectionSize]="drivers.length" [(page)]="page"
+            [pageSize]="pageSize" [boundaryLinks]="true"></ngb-pagination>
+          </tr>
+        </tfoot>
+       </table>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title text-center" id="exampleModalLongTitle">Driver Details</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          
+          <div class="container">
+            <div id="driverDetails" class="table-responsive">
+              <table id="driverDetailsTable" class="table table-boardered table-striped table-hover">
+                  <tr id="driverName" class="text-center list-form">
+                    <td id="namehead">Name</td>
+                    <td id="nameid">{{driverName}}</td>
+                  </tr>
+                  <tr id="driverLocation" class="text-center list-form">
+                    <td id="locationhead">Address</td>
+                    <td id="locationid">{{driverLocation}}</td>
+                  </tr>
+                  <tr id="driverEmail" class="text-center list-form">
+                    <td id="emailhead">Email</td>
+                    <td id="emailid"><a href="mailto:{{driverEmail}}">{{driverEmail}}</a></td>
+                  </tr>
+                  <tr id="driverPhoneNumber" class="text-center list-form">
+                    <td id="phonehead">Phone</td>
+                    <td id="phoneid"><a href="tel:+{{driverPhoneNumber}}">{{driverPhoneNumber}}</a></td>
+                  </tr>
+              </table>
+          </div>
+          </div>
+
+          </div>
+          <div class="modal-footer">
+            <div class="row text-center" style="width: 100%;">
+              <div class="col" id="savediv">
+                <button type="button" class="btn btn-success mr-auto btn-lg">Join Ride</button>
+              </div>
+              <div id="forthumb"></div>
+              <div class="col">
+                <button type="button" data-dismiss="modal" class="btn btn-warning btn-lg">Cancel</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <p id="total"></p>-->
-      <h4>Driver's List</h4>
-      
-     <table class="table table-striped">
-       <thead class="thead-dark">
-         <tr>
-           <th scope="col">Name</th>
-           <th scope="col">Distance</th>
-           <th scope="col">Time</th>
-           <th scope="col">View Info</th>
-         </tr>
-       </thead>
-       <tbody id="output"></tbody>
-      </table>
-     </div>
-     <div class="col-lg-6">
-       <h4>Directions:</h4>
-       <div #map id="gmap" class="img-responsive"></div>
-     </div>
     </div>
   </div>
